@@ -1,9 +1,10 @@
 /** @format */
 
 import React, { useState } from "react";
+import APIKey from "./secrets";
 
 const api = {
-  key: "dbbb6b26fbad0357b4df6128e5ed85ff",
+  key: APIKey,
   base: "https://api.openweathermap.org/data/2.5/",
 };
 
