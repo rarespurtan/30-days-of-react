@@ -1,1 +1,52 @@
 /** @format */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #ddd;
+}
+.App {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: vh;
+}
+
+.c-player {
+  display: block;
+  background-color: #313131;
+  padding: 50px;
+  border-radius: 16px;
+  box-shadow: inset -6px -6px 12px rgba(0, 0, 0, 0.8),
+    inset 6px 6px 12px rgba(255, 255, 255, 0.4);
+}
+
+.c-player > h4 {
+  color: #ffff;
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: 400;
+  text-align: center;
+}
+
+.c-player > p {
+  color: #aaa;
+  font-size: 14px;
+  text-align: center;
+  font-weight: 400;
+}
+
+.c-player--details .details-img {
+  position: relative;
+  width: fit-content;
+  margin: 50px auto;
+}
+
+.c-player--details .details-img img {
+  display: block;
+  margin: 0px auto;
+}
