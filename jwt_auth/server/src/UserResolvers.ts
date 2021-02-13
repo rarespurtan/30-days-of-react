@@ -1,7 +1,6 @@
 /** @format */
 
 import { hash, compare } from "bcryptjs";
-import { sign } from "jsonwebtoken";
 import {
   Arg,
   Ctx,
@@ -10,8 +9,11 @@ import {
   ObjectType,
   Query,
   Resolver,
+  UseMiddleware,
 } from "type-graphql";
+import { createAccessToken, createRefreshToken } from "./auth";
 import { User } from "./entity/User";
+import { isAuth } from "./isAuth";
 import { MyContext } from "./MyContext";
 
 @ObjectType()
@@ -26,6 +28,14 @@ export class UserResolver {
   hello() {
     return "hi!";
   }
+
+  @Query(() => String)
+  @UseMiddleware(isAuth)
+  bye(@Ctx() { payload }: MyContext) {
+    console.log(payload);
+    return ` bye ${payload!.userId}`;
+  }
+
   @Query(() => [User])
   users() {
     return User.find();
@@ -47,17 +57,11 @@ export class UserResolver {
       throw new Error("Bad Password");
     }
     // login successful
-    res.cookie(
-      "jid",
-      sign({ userId: user.id }, "qiueqieurqwe", {
-        expiresIn: "7d",
-      }),
-      {
-        httpOnly: true,
-      }
-    );
+    res.cookie("jid", createRefreshToken(user), {
+      httpOnly: true,
+    });
     return {
-      accessToken: sign({ userId: user.id }, "asdfasdf", { expiresIn: "15m" }),
+      accessToken: createAccessToken(user),
     };
   }
 
