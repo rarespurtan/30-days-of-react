@@ -30,11 +30,9 @@ import { createAccessToken } from "./auth";
     // token is valid
     // send back access token
     const user = await User.findOne({ id: payload.userId });
-
     if (!user) {
       return res.send({ ok: false, accessToken: "" });
     }
-
     return res.send({ ok: true, accessToken: createAccessToken(user) });
   });
 
