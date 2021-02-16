@@ -10,9 +10,17 @@ import cookieParser from "cookie-parser";
 import { verify } from "jsonwebtoken";
 import { User } from "./entity/User";
 import { createAccessToken } from "./auth";
+import { sendRefreshToken } from "./sendRefreshToken";
+import cors from "cors";
 
 (async () => {
   const app = express();
+  app.use(
+    cors({
+      origin: "http://localhost:3000",
+      credentials: true,
+    })
+  );
   app.use(cookieParser());
   app.get("/", (_req, res) => res.send("hello"));
   app.post("/refresh_token", async (req, res) => {
@@ -30,9 +38,17 @@ import { createAccessToken } from "./auth";
     // token is valid
     // send back access token
     const user = await User.findOne({ id: payload.userId });
+
     if (!user) {
       return res.send({ ok: false, accessToken: "" });
     }
+
+    if (user.tokenVersion !== payload.tokenVersion) {
+      return res.send({ ok: false, accessToken: "" });
+    }
+
+    sendRefreshToken(res, createAccessToken(user));
+
     return res.send({ ok: true, accessToken: createAccessToken(user) });
   });
 
@@ -45,7 +61,7 @@ import { createAccessToken } from "./auth";
     context: ({ req, res }) => ({ req, res }),
   });
 
-  apolloServer.applyMiddleware({ app });
+  apolloServer.applyMiddleware({ app, cors: false });
 
   app.listen(4000, () => {
     console.log("express server started");
