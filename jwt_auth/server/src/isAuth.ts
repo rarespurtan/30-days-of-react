@@ -14,7 +14,7 @@ export const isAuth: MiddlewareFn<MyContext> = ({ context }, next) => {
     // checks to see if auth header is valid,
     // if it is it sets context.payload to payload
     // so we can access it from UserResolver.ts
-    const token = authorization?.split(" ")[1];
+    const token = authorization.split(" ")[1];
     const payload = verify(token, process.env.ACCESS_TOKEN_SECRET!);
     context.payload = payload as any;
   } catch (err) {

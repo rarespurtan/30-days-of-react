@@ -2,7 +2,6 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
-import { Routes } from "./Routes";
 import {
   ApolloClient,
   createHttpLink,
@@ -11,9 +10,11 @@ import {
 } from "@apollo/client";
 import { getAccessToken } from "./pages/accessToken";
 import { setContext } from "@apollo/client/link/context";
+import { App } from "./App";
 
 const httpLink = createHttpLink({
   uri: "http://localhost:4000/graphql",
+  credentials: "include",
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -31,13 +32,12 @@ const authLink = setContext((_, { headers }) => {
 const client = new ApolloClient({
   // uri: "http://localhost:4000",
   cache: new InMemoryCache(),
-  credentials: "include",
   link: authLink.concat(httpLink),
 });
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <Routes />
+    <App />
   </ApolloProvider>,
   document.getElementById("root")
 );

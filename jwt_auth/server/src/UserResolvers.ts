@@ -35,8 +35,7 @@ export class UserResolver {
   @Query(() => String)
   @UseMiddleware(isAuth)
   bye(@Ctx() { payload }: MyContext) {
-    console.log(payload);
-    return ` bye ${payload!.userId}`;
+    return `bye ${payload!.userId}`;
   }
 
   @Query(() => [User])
@@ -69,6 +68,7 @@ export class UserResolver {
     }
     // login successful
     sendRefreshToken(res, createRefreshToken(user));
+
     return {
       accessToken: createAccessToken(user),
     };

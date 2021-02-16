@@ -10,11 +10,11 @@ export const Bye: React.FC<Props> = () => {
     return <div>Loading..</div>;
   }
   if (error) {
-    console.log(error);
+    // console.log(error);
     return <div>error</div>;
   }
   if (!data) {
     return <div>No data</div>;
   }
-  return <div> {data}</div>;
+  return <div> {data.bye} </div>;
 };
