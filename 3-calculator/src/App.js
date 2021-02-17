@@ -4,6 +4,7 @@ import { Component } from "react";
 import KeyPad from "./Components/KeyPad";
 import Result from "./Components/Result";
 import "./App.css";
+import CalculationHistory from "./Components/CalculationHistory";
 
 class App extends Component {
   constructor() {
@@ -13,11 +14,19 @@ class App extends Component {
     };
   }
 
+  history = new Map();
+
+  pushToHistory = (expression, result) => {
+    this.history.set(expression, result);
+  };
+
   calculate = () => {
     try {
+      let expression = this.state.result;
       this.setState({
         result: (eval(this.state.result) || "") + "",
       });
+      this.pushToHistory(expression, this.state.result);
     } catch (e) {
       this.setState({
         result: "error",
@@ -50,7 +59,6 @@ class App extends Component {
       });
     }
   };
-
   render() {
     return (
       <div>
