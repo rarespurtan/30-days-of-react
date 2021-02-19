@@ -16,7 +16,7 @@ export default function Tour({ id, image, info, price, name, removeTour }) {
         <button onClick={() => setReadMore(!readMore)}>
           {readMore ? "show less" : "read more"}
         </button>
-        <button className='delete-btn' onClick={removeTour}>
+        <button className='delete-btn' onClick={() => removeTour(id)}>
           Not interested
         </button>
       </footer>
