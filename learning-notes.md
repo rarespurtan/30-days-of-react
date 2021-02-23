@@ -100,7 +100,20 @@ useEffect(() => {
   }, 3000);
   return () => clearInterval(slider);
 }, [index]);
+
+useEffect(() => {
+  const timeout = setTimeout(() => {
+    setAlert(false);
+  }, 3000);
+  return () => clearTimeout(timeout);
+}, [alert]);
 ```
 
 useEffect code that changes index every 3 seconds.
 Returns cleanup function that clears the interval while the index changes.
+
+```javascript
+ className={`${error ? "error" : null}`}
+```
+
+Conditional class name assignment.
