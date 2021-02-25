@@ -1,8 +1,6 @@
 <!-- @format -->
 
-### React.js projects
-
-Component Driven Development (CDD) in React
+### Component Driven Development (CDD) in React
 
 Component Driven Development (CDD) is a popular methodology used in approaching modern website development. If you code using atomic design principles or utilise the benefits of a JavaScript framework, you may already be adhering to some of the principles the method adopts.
 
