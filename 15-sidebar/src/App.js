@@ -1,9 +1,18 @@
 /** @format */
 
 import "./App.css";
+import Modal from "./Modal";
+import Home from "./Home";
+import Sidebar from "./Sidebar";
 
 function App() {
-  return <div className='App'></div>;
+  return (
+    <>
+      <Home />
+      <Modal />
+      <Sidebar />
+    </>
+  );
 }
 
 export default App;
